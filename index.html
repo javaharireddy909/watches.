@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIMELESS | Luxury Watches</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #101010;
+    color: white;
+}
+
+header {
+    background: #181818;
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 27px;
+    color: #d4af37;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+nav a:hover {
+    color: #d4af37;
+}
+
+.cart {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.hero {
+    min-height: 420px;
+    padding: 100px 8%;
+    background: linear-gradient(90deg, #080808, #29251d);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero h1 {
+    font-size: 55px;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #d4af37;
+}
+
+.hero p {
+    color: #bbb;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+.btn {
+    background: #d4af37;
+    color: black;
+    border: none;
+    padding: 14px 28px;
+    font-weight: bold;
+    cursor: pointer;
+    width: fit-content;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: white;
+}
+
+.section {
+    padding: 65px 8%;
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 35px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.controls input,
+.controls select {
+    padding: 12px;
+    background: #222;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    background: #292929;
+}
+
+.details {
+    padding: 18px;
+}
+
+.details h3 {
+    margin-bottom: 10px;
+}
+
+.category {
+    color: #aaa;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.price {
+    color: #d4af37;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.add {
+    background: #d4af37;
+    border: none;
+    width: 100%;
+    padding: 11px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add:hover {
+    background: white;
+}
+
+.about {
+    background: #1c1c1c;
+    text-align: center;
+}
+
+.about p {
+    color: #bbb;
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #080808;
+    color: #999;
+}
+
+@media(max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 550px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 6px;
+        font-size: 13px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TIMELESS.</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <div class="cart">
+        🛒 Cart: <span id="count">0</span>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <h1>TIME IS YOUR <span>STYLE.</span></h1>
+    <p>Discover the art of luxury with our exclusive watch collection.</p>
+    <a href="#shop" class="btn">EXPLORE COLLECTION</a>
+</section>
+
+<section class="section" id="shop">
+
+    <h2>OUR COLLECTION</h2>
+    <p class="subtitle">Explore our premium selection of watches</p>
+
+    <div class="controls">
+        <input type="text" id="search"
+        placeholder="Search watches..." oninput="displayWatches()">
+
+        <select id="filter" onchange="displayWatches()">
+            <option value="All">All Watches</option>
+            <option value="Luxury">Luxury</option>
+            <option value="Sports">Sports</option>
+            <option value="Classic">Classic</option>
+        </select>
+    </div>
+
+    <div class="products" id="products"></div>
+
+</section>
+
+<section class="section about" id="about">
+    <h2>ABOUT TIMELESS</h2>
+    <p>
+        TIMELESS brings you a premium collection of watches
+        designed for people who appreciate style, elegance
+        and quality. Discover your perfect watch and make
+        every second count.
+    </p>
+</section>
+
+<footer>
+    <p>© 2026 TIMELESS WATCHES | All Rights Reserved</p>
+</footer>
+
+<script>
+
+const watches = [
+{
+ name: "Rolex Submariner",
+ category: "Luxury",
+ price: 125000,
+ image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500"
+},
+{
+ name: "Classic Silver",
+ category: "Classic",
+ price: 8500,
+ image: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500"
+},
+{
+ name: "Sport Edition",
+ category: "Sports",
+ price: 12000,
+ image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500"
+},
+{
+ name: "Golden Luxury",
+ category: "Luxury",
+ price: 45000,
+ image: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=500"
+},
+{
+ name: "Modern Black",
+ category: "Classic",
+ price: 9500,
+ image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500"
+},
+{
+ name: "Diver Pro",
+ category: "Sports",
+ price: 18000,
+ image: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=500"
+},
+{
+ name: "Royal Gold",
+ category: "Luxury",
+ price: 65000,
+ image: "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=500"
+},
+{
+ name: "Vintage Brown",
+ category: "Classic",
+ price: 7500,
+ image: "https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?w=500"
+},
+{
+ name: "Active Sport",
+ category: "Sports",
+ price: 15000,
+ image: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500"
+},
+{
+ name: "Diamond Elite",
+ category: "Luxury",
+ price: 95000,
+ image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=500"
+}
+];
+
+let cart = [];
+
+function displayWatches() {
+
+    const container = document.getElementById("products");
+
+    const search = document.getElementById("search")
+        .value.toLowerCase();
+
+    const category = document.getElementById("filter").value;
+
+    const filtered = watches.filter(watch => {
+        return watch.name.toLowerCase().includes(search) &&
+        (category === "All" || watch.category === category);
+    });
+
+    container.innerHTML = "";
+
+    filtered.forEach((watch, index) => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <img src="${watch.image}" alt="${watch.name}">
+            <div class="details">
+                <h3>${watch.name}</h3>
+                <p class="category">${watch.category} Collection</p>
+                <p class="price">₹${watch.price.toLocaleString("en-IN")}</p>
+                <button class="add">Add To Cart</button>
+            </div>
+        `;
+
+        card.querySelector("button").addEventListener("click", () => {
+            addToCart(watch);
+        });
+
+        container.appendChild(card);
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = "<p>No watches found.</p>";
+    }
+}
+
+function addToCart(watch) {
+
+    cart.push(watch);
+
+    document.getElementById("count").innerText = cart.length;
+
+    alert(watch.name + " added to cart!");
+}
+
+displayWatches();
+
+</script>
+
+</body>
+</html>
